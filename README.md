@@ -101,7 +101,7 @@ Modified the verbiage for `/qh toggle` to `QuickHeal mode: Normal HPS` and `Quic
 The main tanks list is now saved to disk and will persist across sessions.</Br>
 Removed non-partition mode (`hm`) commands.<Br>
 Druids can now cast HoTs while moving.<Br>
-Big overhaul on usage syntax, e.g.: `/qh [mask] [hot] [mod]` OR `/quickheal [mask] [hot] [mod]`:<Br>
+Big overhaul on usage syntax, e.g.: `/qh [mask] [type] [mod]` OR `/quickheal [mask] [type] [mod]`:<Br>
 
 `[mask]`: constrains healing pool to:<Br>
 `player` = yourself<Br>
@@ -112,13 +112,14 @@ Big overhaul on usage syntax, e.g.: `/qh [mask] [hot] [mod]` OR `/quickheal [mas
 `nonmt` = everyone but the main tanks<Br>
 `subgroup` = raid subgroups (defined in the configuration panel)<Br>
 
-`[heal]`: Forces the use of channeled heal spells.<Br>
-`[hot]`: Forces the use of a HoT spell over a channeled spell.  Only works for Priests & Druids.<Br>
-`[chainheal]`: Forces the use of the Chain Heal spell.  Only works for Shamans.<Br>
+`[type]`: constrains healing spell to:<Br>
+`heal`: Forces the use of your class' channeled heal spells.<Br>
+`hot`: Forces the use of your class' HoT spell over a channeled spell.  Only works for Priests & Druids.<Br>
+`chainheal`: Forces the use of the Chain Heal spell.  Only works for Shamans.<Br>
 
 `[mod]`: optional argument.  Modifies the application of HoTs:<Br>
-`[max]`= will apply a HoT to the next target that is not @100% hp and that does not currently have a HoT applied.<Br>
-`[fh]` = firehose mode.  Will apply maximum rank HoT on the next target that does not have a HoT applied.<Br>
+`max`= will apply a HoT to the next target that is not @100% hp and that does not currently have a HoT applied.<Br>
+`fh` = firehose mode.  Will apply maximum rank HoT on the next target that does not have a HoT applied.<Br>
 <hr>
 
 **1.17.1**<Br>
