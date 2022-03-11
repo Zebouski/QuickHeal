@@ -1860,8 +1860,6 @@ function GetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, overheal
     end
     local data = SpellName .. ';' .. rank .. ';';
 
-    --"Healing Touch;5;"
-
     QuickHeal_debug("  Output: " .. data);
     return data;
 end
