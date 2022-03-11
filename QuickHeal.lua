@@ -97,8 +97,13 @@ BINDING_NAME_QUICKHEAL_SHOWDOWNRANKWINDOW = "Show/Hide Downrank Window"
 local FindSpellToUse = nil;
 
 local FindChainHealSpellToUse = nil;
+local FindChainHealSpellToUseNoTarget = nil;
+
 local FindHealSpellToUse = nil;
+local FindHealSpellToUseNoTarget = nil;
+
 local FindHoTSpellToUse = nil;
+local FindHoTSpellToUseNoTarget = nil;
 
 local GetRatioHealthyExplanation = nil;
 
@@ -925,7 +930,9 @@ local function Initialise()
 
     if PlayerClass == "shaman" then
         FindChainHealSpellToUse = QuickHeal_Shaman_FindChainHealSpellToUse;
+        FindChainHealSpellToUseNoTarget = QuickHeal_Shaman_FindChainHealSpellToUseNoTarget;
         FindHealSpellToUse = QuickHeal_Shaman_FindHealSpellToUse;
+        FindHealSpellToUseNoTarget = QuickHeal_Shaman_FindHealSpellToUseNoTarget;
         GetRatioHealthyExplanation = QuickHeal_Shaman_GetRatioHealthyExplanation;
         QuickHealDownrank_Slider_NH:SetMinMaxValues(1,10);
         --QuickHealDownrank_Slider_NH:SetValue(10);
@@ -936,13 +943,16 @@ local function Initialise()
         SLASH_QUICKHEAL2 = "/quickheal";
     elseif PlayerClass == "priest" then
         FindHealSpellToUse = QuickHeal_Priest_FindHealSpellToUse;
+        FindHealSpellToUseNoTarget = QuickHeal_Priest_FindHealSpellToUseNoTarget;
         FindHoTSpellToUse = QuickHeal_Priest_FindHoTSpellToUse;
+        FindHoTSpellToUseNoTarget = QuickHeal_Priest_FindHoTSpellToUseNoTarget;
         GetRatioHealthyExplanation = QuickHeal_Priest_GetRatioHealthyExplanation;
         SlashCmdList["QUICKHEAL"] = QuickHeal_Command_Priest;
         SLASH_QUICKHEAL1 = "/qh";
         SLASH_QUICKHEAL2 = "/quickheal";
     elseif PlayerClass == "paladin" then
         FindHealSpellToUse = QuickHeal_Paladin_FindSpellToUse;
+        FindHealSpellToUseNoTarget = QuickHeal_Paladin_FindSpellToUseNoTarget;
         GetRatioHealthyExplanation = QuickHeal_Paladin_GetRatioHealthyExplanation;
         -- convert default (priest) downrank window to Paladin with only FH Slider shown
         QuickHealDownrank_Slider_NH:Hide();
@@ -959,7 +969,9 @@ local function Initialise()
         SLASH_QUICKHEAL2 = "/quickheal";
     elseif PlayerClass == "druid" then
         FindHealSpellToUse = QuickHeal_Druid_FindHealSpellToUse;
+        FindHealSpellToUseNoTarget = QuickHeal_Druid_FindHealSpellToUseNoTarget;
         FindHoTSpellToUse = QuickHeal_Druid_FindHoTSpellToUse;
+        FindHoTSpellToUseNoTarget = QuickHeal_Druid_FindHoTSpellToUseNoTarget;
         GetRatioHealthyExplanation = QuickHeal_Druid_GetRatioHealthyExplanation;
         SlashCmdList["QUICKHEAL"] = QuickHeal_Command_Druid;
         SLASH_QUICKHEAL1 = "/qh";
@@ -1818,6 +1830,40 @@ function QuickHeal_EstimateUnitHealNeed(unit, report)
         QuickHeal_debug("Health deficit estimate (" .. Level .. " " .. string.lower(Class) .. " @ " .. HealthPercentage * 100 .. "%)", HealNeed)
     end
     return HealNeed;
+end
+
+function GetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, overheal, hdb, incombat)
+    print('class:' .. class .. ' maxhealth:' .. maxhealth .. ' healDeficit:' .. healDeficit .. ' type:' .. type .. ' forceMaxHPS:' .. tostring(forceMaxHPS) .. ' overheal:' .. overheal .. ' hdb:' .. hdb .. ' incombat:' .. tostring(incombat));
+
+    if type == "channel" then
+        myspell, healsize = FindHealSpellToUseNoTarget(maxhealth, healDeficit, "channel", 1.0, forceMaxHPS, hdb, incombat);
+    end
+
+    if type == "hot" then
+        myspell, healsize = FindHoTSpellToUseNoTarget(maxhealth, healDeficit, "hot", 1.0, forceMaxHPS, hdb, incombat);
+    end
+
+    if type == "chainheal" then
+        myspell, healsize = FindChainHealSpellToUseNoTarget(maxhealth, healDeficit, "chainheal", 1.0, forceMaxHPS, hdb, incombat);
+    end
+
+    --print('spellID:' .. tostring(myspell));
+
+    -- Get spell info
+    local SpellName, SpellRank = GetSpellName(myspell, BOOKTYPE_SPELL);
+    local rank;
+    if SpellRank == "" then
+        SpellRank = nil
+    else
+        --rank = string.gsub(SpellRank, '%W+$', "")
+        rank = string.gsub(SpellRank,"Rank ","")
+    end
+    local data = SpellName .. ';' .. rank .. ';';
+
+    --"Healing Touch;5;"
+
+    QuickHeal_debug("  Output: " .. data);
+    return data;
 end
 
 local function CastCheckSpell()
