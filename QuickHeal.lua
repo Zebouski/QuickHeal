@@ -1833,7 +1833,7 @@ function QuickHeal_EstimateUnitHealNeed(unit, report)
 end
 
 function GetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, overheal, hdb, incombat)
-    print('class:' .. class .. ' maxhealth:' .. maxhealth .. ' healDeficit:' .. healDeficit .. ' type:' .. type .. ' forceMaxHPS:' .. tostring(forceMaxHPS) .. ' overheal:' .. overheal .. ' hdb:' .. hdb .. ' incombat:' .. tostring(incombat));
+    --print('class:' .. class .. ' maxhealth:' .. maxhealth .. ' healDeficit:' .. healDeficit .. ' type:' .. type .. ' forceMaxHPS:' .. tostring(forceMaxHPS) .. ' overheal:' .. overheal .. ' hdb:' .. hdb .. ' incombat:' .. tostring(incombat));
 
     if type == "channel" then
         myspell, healsize = FindHealSpellToUseNoTarget(maxhealth, healDeficit, "channel", 1.0, forceMaxHPS, hdb, incombat);
