@@ -159,7 +159,7 @@ function TWA_handleSync(pre, t, ch, sender)
 
             MTListFrame.UpdateYourself = true;
         end
-
+        QH_MTListSyncTrigger()
         --jgpprint(roster[1]);
         --jgpprint(roster[2]);
     end
@@ -189,6 +189,7 @@ function QH_ClearMTList()
     QHV.MTList = {};
 
     MTListFrame.UpdateYourself = true;
+    QH_MTListSyncTrigger()
 end --}}}
 
 function QH_AddTargetToMTList()
@@ -210,6 +211,7 @@ function QH_AddUnitToMTList(unit)
             table.insert(QHV.MTList, name);
         end
         MTListFrame.UpdateYourself = true;
+        QH_MTListSyncTrigger()
     end
 end --}}}
 
@@ -257,6 +259,7 @@ function QH_RemoveIDFromMTList(id)
     --{{{
     table.remove(QHV.MTList, id);
     MTListFrame.UpdateYourself = true;
+    QH_MTListSyncTrigger();
 end --}}}
 
 function QH_MTListFrame_OnUpdate()
@@ -309,6 +312,10 @@ function QH_MTListFrame_OnUpdate()
     end
 
 end --}}}
+
+function QH_MTListSyncTrigger()
+    ChatThrottleLib:SendAddonMessage("ALERT", "OhHiMark", "RosterUpdated", "RAID")
+end
 
 --[ MTList END ]--
 
@@ -1832,48 +1839,16 @@ function QuickHeal_EstimateUnitHealNeed(unit, report)
     return HealNeed;
 end
 
-function HODLGetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, overheal, hdb, incombat)
-    print('class:' .. class .. ' maxhealth:' .. maxhealth .. ' healDeficit:' .. healDeficit .. ' type:' .. type .. ' forceMaxHPS:' .. tostring(forceMaxHPS) .. ' overheal:' .. overheal .. ' hdb:' .. hdb .. ' incombat:' .. tostring(incombat));
-
-    if type == "channel" then
-        myspell, healsize = FindHealSpellToUseNoTarget(maxhealth, healDeficit, "channel", 1.0, forceMaxHPS, hdb, incombat);
-    end
-
-    if type == "hot" then
-        myspell, healsize = FindHoTSpellToUseNoTarget(maxhealth, healDeficit, "hot", 1.0, forceMaxHPS, hdb, incombat);
-    end
-
-    if type == "chainheal" then
-        myspell, healsize = FindChainHealSpellToUseNoTarget(maxhealth, healDeficit, "chainheal", 1.0, forceMaxHPS, hdb, incombat);
-    end
-
-    --print('spellID:' .. tostring(myspell));
-
-    -- Get spell info
-    local SpellName, SpellRank = GetSpellName(myspell, BOOKTYPE_SPELL);
-    local rank;
-    if SpellRank == "" then
-        SpellRank = nil
-    else
-        --rank = string.gsub(SpellRank, '%W+$', "")
-        rank = string.gsub(SpellRank,"Rank ","")
-    end
-    local data = SpellName .. ';' .. rank .. ';';
-
-    QuickHeal_debug("  Output: " .. data);
-    return data;
-end
-
 function GetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, forceMaxRank, overheal, hdb, incombat)
-    print('class:' .. class ..
-            ' maxhealth:' .. maxhealth ..
-            ' healDeficit:' .. healDeficit ..
-            ' type:' .. type ..
-            ' forceMaxHPS:' .. tostring(forceMaxHPS) ..
-            ' forceMaxRank:' .. tostring(forceMaxRank) ..
-            ' overheal:' .. overheal ..
-            ' hdb:' .. hdb ..
-            ' incombat:' .. tostring(incombat));
+    --print('class:' .. class ..
+    --        ' maxhealth:' .. maxhealth ..
+    --        ' healDeficit:' .. healDeficit ..
+    --        ' type:' .. type ..
+    --        ' forceMaxHPS:' .. tostring(forceMaxHPS) ..
+    --        ' forceMaxRank:' .. tostring(forceMaxRank) ..
+    --        ' overheal:' .. overheal ..
+    --        ' hdb:' .. hdb ..
+    --        ' incombat:' .. tostring(incombat));
 
     -- if forceMaxRank, feed it an obnoxiously large heal requirement
     --if forceMaxRank then
