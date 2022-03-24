@@ -325,7 +325,7 @@ function QuickHeal_Shaman_FindHealSpellToUse(Target, healType, multiplier, force
     return SpellID,HealSize*HDB;
 end
 
-function QuickHeal_Shaman_FindHealSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, hdb, incombat)
+function QuickHeal_Shaman_FindHealSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, forceMaxRank, hdb, incombat)
     local SpellID = nil;
     local HealSize = 0;
     local Overheal = false;

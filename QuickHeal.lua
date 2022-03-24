@@ -1832,8 +1832,8 @@ function QuickHeal_EstimateUnitHealNeed(unit, report)
     return HealNeed;
 end
 
-function GetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, overheal, hdb, incombat)
-    --print('class:' .. class .. ' maxhealth:' .. maxhealth .. ' healDeficit:' .. healDeficit .. ' type:' .. type .. ' forceMaxHPS:' .. tostring(forceMaxHPS) .. ' overheal:' .. overheal .. ' hdb:' .. hdb .. ' incombat:' .. tostring(incombat));
+function HODLGetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, overheal, hdb, incombat)
+    print('class:' .. class .. ' maxhealth:' .. maxhealth .. ' healDeficit:' .. healDeficit .. ' type:' .. type .. ' forceMaxHPS:' .. tostring(forceMaxHPS) .. ' overheal:' .. overheal .. ' hdb:' .. hdb .. ' incombat:' .. tostring(incombat));
 
     if type == "channel" then
         myspell, healsize = FindHealSpellToUseNoTarget(maxhealth, healDeficit, "channel", 1.0, forceMaxHPS, hdb, incombat);
@@ -1845,6 +1845,53 @@ function GetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, overheal
 
     if type == "chainheal" then
         myspell, healsize = FindChainHealSpellToUseNoTarget(maxhealth, healDeficit, "chainheal", 1.0, forceMaxHPS, hdb, incombat);
+    end
+
+    --print('spellID:' .. tostring(myspell));
+
+    -- Get spell info
+    local SpellName, SpellRank = GetSpellName(myspell, BOOKTYPE_SPELL);
+    local rank;
+    if SpellRank == "" then
+        SpellRank = nil
+    else
+        --rank = string.gsub(SpellRank, '%W+$', "")
+        rank = string.gsub(SpellRank,"Rank ","")
+    end
+    local data = SpellName .. ';' .. rank .. ';';
+
+    QuickHeal_debug("  Output: " .. data);
+    return data;
+end
+
+function GetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, forceMaxRank, overheal, hdb, incombat)
+    print('class:' .. class ..
+            ' maxhealth:' .. maxhealth ..
+            ' healDeficit:' .. healDeficit ..
+            ' type:' .. type ..
+            ' forceMaxHPS:' .. tostring(forceMaxHPS) ..
+            ' forceMaxRank:' .. tostring(forceMaxRank) ..
+            ' overheal:' .. overheal ..
+            ' hdb:' .. hdb ..
+            ' incombat:' .. tostring(incombat));
+
+    -- if forceMaxRank, feed it an obnoxiously large heal requirement
+    --if forceMaxRank then
+    --    healDeficit = 10000;
+    --end
+
+    --local feed =
+
+    if type == "channel" then
+        myspell, healsize = FindHealSpellToUseNoTarget(maxhealth, healDeficit, "channel", 1.0, forceMaxHPS, forceMaxRank, hdb, incombat);
+    end
+
+    if type == "hot" then
+        myspell, healsize = FindHoTSpellToUseNoTarget(maxhealth, healDeficit, "hot", 1.0, forceMaxHPS, forceMaxRank, hdb, incombat);
+    end
+
+    if type == "chainheal" then
+        myspell, healsize = FindChainHealSpellToUseNoTarget(maxhealth, healDeficit, "chainheal", 1.0, forceMaxHPS, forceMaxRank, hdb, incombat);
     end
 
     --print('spellID:' .. tostring(myspell));

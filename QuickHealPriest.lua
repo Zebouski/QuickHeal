@@ -208,10 +208,12 @@ function QuickHeal_Priest_FindHealSpellToUse(Target, healType, multiplier, force
     return SpellID,HealSize*HDB;
 end
 
-function QuickHeal_Priest_FindHealSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, hdb, incombat)
+function QuickHeal_Priest_FindHealSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, forceMaxRank, hdb, incombat)
     local SpellID = nil;
     local HealSize = 0;
     local Overheal = false;
+
+
 
     if multiplier == nil then
         jgpprint(">>> multiplier is NIL <<<")
@@ -333,12 +335,13 @@ function QuickHeal_Priest_FindHealSpellToUseNoTarget(maxhealth, healDeficit, hea
         if healneed > (1902*shMod+healMod30)*K      and ManaLeft >= 655*ihMod and maxRankGH >=4 and downRankNH >= 11 then SpellID = SpellIDsGH[4]; HealSize = 1902*shMod+healMod30      end
         if healneed > (2080*shMod+healMod30)*K      and ManaLeft >= 710*ihMod and maxRankGH >=5 and downRankNH >= 12 then SpellID = SpellIDsGH[5]; HealSize = 2080*shMod+healMod30      end
     else
-        if ManaLeft >= 155 and maxRankFH >=2 and downRankFH >= 2 then SpellID = SpellIDsFH[2]; HealSize = 286*shMod+healMod15 end
-        if ManaLeft >= 185 and maxRankFH >=3 and downRankFH >= 3 then SpellID = SpellIDsFH[3]; HealSize = 360*shMod+healMod15 end
-        if ManaLeft >= 215 and maxRankFH >=4 and downRankFH >= 4 then SpellID = SpellIDsFH[4]; HealSize = 439*shMod+healMod15 end
-        if ManaLeft >= 265 and maxRankFH >=5 and downRankFH >= 5 then SpellID = SpellIDsFH[5]; HealSize = 567*shMod+healMod15 end
-        if ManaLeft >= 315 and maxRankFH >=6 and downRankFH >= 6 then SpellID = SpellIDsFH[6]; HealSize = 704*shMod+healMod15 end
-        if ManaLeft >= 380 and maxRankFH >=7 and downRankFH >= 7 then SpellID = SpellIDsFH[7]; HealSize = 885*shMod+healMod15 end
+        SpellID = SpellIDsFH[1]; HealSize = 215*shMod+healMod15; -- Default to FH
+        if healneed > (286*shMod+healMod15)*k and ManaLeft >= 155 and maxRankFH >=2 and downRankFH >= 2 then SpellID = SpellIDsFH[2]; HealSize = 286*shMod+healMod15 end
+        if healneed > (360*shMod+healMod15)*k and ManaLeft >= 185 and maxRankFH >=3 and downRankFH >= 3 then SpellID = SpellIDsFH[3]; HealSize = 360*shMod+healMod15 end
+        if healneed > (439*shMod+healMod15)*k and ManaLeft >= 215 and maxRankFH >=4 and downRankFH >= 4 then SpellID = SpellIDsFH[4]; HealSize = 439*shMod+healMod15 end
+        if healneed > (567*shMod+healMod15)*k and ManaLeft >= 265 and maxRankFH >=5 and downRankFH >= 5 then SpellID = SpellIDsFH[5]; HealSize = 567*shMod+healMod15 end
+        if healneed > (704*shMod+healMod15)*k and ManaLeft >= 315 and maxRankFH >=6 and downRankFH >= 6 then SpellID = SpellIDsFH[6]; HealSize = 704*shMod+healMod15 end
+        if healneed > (885*shMod+healMod15)*k and ManaLeft >= 380 and maxRankFH >=7 and downRankFH >= 7 then SpellID = SpellIDsFH[7]; HealSize = 885*shMod+healMod15 end
     end
 
     return SpellID,HealSize*hdb;
@@ -530,7 +533,7 @@ function QuickHeal_Priest_FindHoTSpellToUse(Target, healType, forceMaxRank)
     return SpellID,HealSize*HDB;
 end
 
-function QuickHeal_Priest_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, hdb, incombat)
+function QuickHeal_Priest_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, forceMaxRank, hdb, incombat)
     local SpellID = nil;
     local HealSize = 0;
 
@@ -597,9 +600,15 @@ function QuickHeal_Priest_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, heal
     end
 
     -- Get total healing modifier (factor) caused by healing target debuffs
-    local HDB = QuickHeal_GetHealModifier(Target);
-    QuickHeal_debug("Target debuff healing modifier",HDB);
-    healneed = healneed/HDB;
+    --local HDB = QuickHeal_GetHealModifier(Target);
+    --QuickHeal_debug("Target debuff healing modifier",HDB);
+    healneed = healneed/hdb;
+
+    -- if forceMaxRank, feed it an obnoxiously large heal requirement
+    --if forceMaxRank then
+    --    print('lollololool');
+    --    healneed = 10000;
+    --end
 
     -- Get a list of ranks available for all spells
     local SpellIDsLH = QuickHeal_GetSpellIDs(QUICKHEAL_SPELL_LESSER_HEAL);

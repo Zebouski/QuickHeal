@@ -165,7 +165,7 @@ function QuickHeal_Paladin_FindSpellToUse(Target, healType, multiplier, forceMax
     return SpellID,HealSize*HDB;
 end
 
-function QuickHeal_Paladin_FindSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, hdb, incombat)
+function QuickHeal_Paladin_FindSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, forceMaxRank, hdb, incombat)
     local SpellID = nil;
     local HealSize = 0;
     local Overheal = false;
