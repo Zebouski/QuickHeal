@@ -165,10 +165,22 @@ function QuickHeal_Paladin_FindSpellToUse(Target, healType, multiplier, forceMax
     return SpellID,HealSize*HDB;
 end
 
-function QuickHeal_Paladin_FindSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, forceMaxRank, hdb, incombat)
+function QuickHeal_Paladin_FindHealSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, forceMaxRank, hdb, incombat)
     local SpellID = nil;
     local HealSize = 0;
     local Overheal = false;
+
+    if multiplier == nil then
+        jgpprint(">>> multiplier is NIL <<<")
+        --if multiplier > 1.0 then
+        --    Overheal = true;
+        --end
+    elseif multiplier == 1.0 then
+        jgpprint(">>> multiplier is " .. multiplier .. " <<<")
+    elseif multiplier > 1.0 then
+        jgpprint(">>> multiplier is " .. multiplier .. " <<<")
+        Overheal = true;
+    end
 
     -- +Healing-PenaltyFactor = (1-((20-LevelLearnt)*0.0375)) for all spells learnt before level 20
     local PF1 = 0.2875;
@@ -182,18 +194,6 @@ function QuickHeal_Paladin_FindSpellToUseNoTarget(maxhealth, healDeficit, healTy
     local EstimateUnitHealNeed = QuickHeal_EstimateUnitHealNeed;
     local GetSpellIDs = QuickHeal_GetSpellIDs;
     local debug = QuickHeal_debug;
-
-    if multiplier == nil then
-        jgpprint(">>> multiplier is NIL <<<")
-        --if multiplier > 1.0 then
-        --    Overheal = true;
-        --end
-    elseif multiplier == 1.0 then
-        jgpprint(">>> multiplier is " .. multiplier .. " <<<")
-    elseif multiplier > 1.0 then
-        jgpprint(">>> multiplier is " .. multiplier .. " <<<")
-        Overheal = true;
-    end
 
     -- Determine health and heal need of target
     local healneed = healDeficit * multiplier;
@@ -232,9 +232,9 @@ function QuickHeal_Paladin_FindSpellToUseNoTarget(maxhealth, healDeficit, healTy
     end
 
     -- Get total healing modifier (factor) caused by healing target debuffs
-    local HDB = QuickHeal_GetHealModifier(Target);
-    debug("Target debuff healing modifier",HDB);
-    healneed = healneed/HDB;
+    --local HDB = QuickHeal_GetHealModifier(Target);
+    --debug("Target debuff healing modifier",HDB);
+    healneed = healneed/hdb;
 
     -- Get a list of ranks available of 'Lesser Healing Wave' and 'Healing Wave'
     local SpellIDsHL = GetSpellIDs(QUICKHEAL_SPELL_HOLY_LIGHT);

@@ -959,7 +959,7 @@ local function Initialise()
         SLASH_QUICKHEAL2 = "/quickheal";
     elseif PlayerClass == "paladin" then
         FindHealSpellToUse = QuickHeal_Paladin_FindSpellToUse;
-        FindHealSpellToUseNoTarget = QuickHeal_Paladin_FindSpellToUseNoTarget;
+        FindHealSpellToUseNoTarget = QuickHeal_Paladin_FindHealSpellToUseNoTarget;
         GetRatioHealthyExplanation = QuickHeal_Paladin_GetRatioHealthyExplanation;
         -- convert default (priest) downrank window to Paladin with only FH Slider shown
         QuickHealDownrank_Slider_NH:Hide();
@@ -1856,6 +1856,8 @@ function GetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, forceMax
     --end
 
     --local feed =
+
+
 
     if type == "channel" then
         myspell, healsize = FindHealSpellToUseNoTarget(maxhealth, healDeficit, "channel", 1.0, forceMaxHPS, forceMaxRank, hdb, incombat);

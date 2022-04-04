@@ -213,8 +213,6 @@ function QuickHeal_Priest_FindHealSpellToUseNoTarget(maxhealth, healDeficit, hea
     local HealSize = 0;
     local Overheal = false;
 
-
-
     if multiplier == nil then
         jgpprint(">>> multiplier is NIL <<<")
         --if multiplier > 1.0 then
