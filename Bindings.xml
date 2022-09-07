@@ -2,15 +2,27 @@
 	<Binding name="QUICKHEAL_HEAL" header="QUICKHEAL">
         if QUICKHEAL_LOADED then QuickHeal() end
 	</Binding>
+    <Binding name="QUICKHEAL_HOT">
+        if QUICKHEAL_LOADED then QuickHOT(nil, nil, nil, true, false) end
+    </Binding>
+    <Binding name="QUICKHEAL_HOTFH">
+        if QUICKHEAL_LOADED then QuickHOT(nil, nil, nil, true, true) end
+    </Binding>
     <Binding name="QUICKHEAL_HEALSUBGROUP">
-        if QUICKHEAL_LOADED then QuickHeal('subgroup') end
+        if QUICKHEAL_LOADED then QuickHOT("subgroup", nil, nil, false, false) end
 	</Binding>
+    <Binding name="QUICKHEAL_HOTSUBGROUP">
+        if QUICKHEAL_LOADED then QuickHOT("subgroup", nil, nil, true, false) end
+    </Binding>
     <Binding name="QUICKHEAL_HEALPARTY">
         if QUICKHEAL_LOADED then QuickHeal('party') end
 	</Binding>
     <Binding name="QUICKHEAL_HEALMT">
         if QUICKHEAL_LOADED then QuickHeal('mt') end
 	</Binding>
+    <Binding name="QUICKHEAL_HOTMT">
+        if QUICKHEAL_LOADED then QuickHOT("mt", nil, nil, true, false) end
+    </Binding>
     <Binding name="QUICKHEAL_HEALNONMT">
         if QUICKHEAL_LOADED then QuickHeal('nonmt') end
 	</Binding>

@@ -6,8 +6,8 @@ HealComm = AceLibrary("HealComm-1.0")
 --[ Mod data ]--
 QuickHealData = {
     name = 'QuickHeal',
-    version = '1.17.4',
-    releaseDate = 'Jan 30th, 2022',
+    version = '1.17.5',
+    releaseDate = 'Sep 6th, 2022',
     author = 'T. Thorsen, S. Geeding and K. Karachalios feat. Dispatchio',
     website = 'https://turtle-wow.org/',
     category = MYADDONS_CATEGORY_CLASS
@@ -83,9 +83,13 @@ local PlayerClass = string.lower(UnitClass('player'));
 --[ Keybinding ]--
 BINDING_HEADER_QUICKHEAL = "QuickHeal";
 BINDING_NAME_QUICKHEAL_HEAL = "Heal";
+BINDING_NAME_QUICKHEAL_HOT = "HoT";
+BINDING_NAME_QUICKHEAL_HOTFH = "HoT Firehose (Naxx Gargoyles)";
 BINDING_NAME_QUICKHEAL_HEALSUBGROUP = "Heal Subgroup";
+BINDING_NAME_QUICKHEAL_HOTSUBGROUP = "HoT Subgroup";
 BINDING_NAME_QUICKHEAL_HEALPARTY = "Heal Party";
 BINDING_NAME_QUICKHEAL_HEALMT = "Heal MT";
+BINDING_NAME_QUICKHEAL_HOTMT = "HoT MT";
 BINDING_NAME_QUICKHEAL_HEALNONMT = "Heal Non MT";
 BINDING_NAME_QUICKHEAL_HEALSELF = "Heal Player";
 BINDING_NAME_QUICKHEAL_HEALTARGET = "Heal Target";

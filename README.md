@@ -1,5 +1,5 @@
 
-# QuickHeal v1.17.4
+# QuickHeal v1.17.5
 
 QuickHeal for Turtle WoW
 
@@ -139,3 +139,10 @@ Added [chainheal] healing type selection for Shaman class.<Br>
 
 **1.17.4**<Br>
 Re-partitioned class modules (i.e. QuickHealDruid.lua, QuickHealPriest.lua, QuickHealPaladin.lua, QuickHealShaman.lua) to allow for class-specific spell/item cast sequences.
+
+**1.17.5**<Br>
+Added 4 new keybindings: 
+- "HoT" [/qh hot] 
+- "HoT Firehose (Naxx Gargoyles)" [/qh hot fh] 
+- "HoT Subgroup" [/qh subgroup hot] 
+- "HoT MT" [/qh mt hot]
