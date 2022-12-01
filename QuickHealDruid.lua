@@ -186,7 +186,7 @@ function QuickHeal_Druid_FindHealSpellToUse(Target, healType, multiplier, forceM
     local level = UnitLevel('player');
 
     --hardwire InCombat to true for testing
-    InCombat = true;
+    --InCombat = true;
 
     if level < 60 then
         -- < LEVEL 60 STUFFS
@@ -240,7 +240,7 @@ function QuickHeal_Druid_FindHealSpellToUse(Target, healType, multiplier, forceM
         --print('f:QuickHeal_Druid_FindHealSpellToUse --you ARE 60');
         -- Find suitable SpellID based on the defined criteria
         if not InCombat then
-            print('f:QuickHeal_Druid_FindHealSpellToUse --NOT InCombat');
+            --print('f:QuickHeal_Druid_FindHealSpellToUse --NOT InCombat');
             -- Not in combat or target is healthy so use the closest available mana efficient healing
             debug(string.format("Not in combat or target healthy or no Regrowth available, will use Healing Touch"))
             if Health < RatioFull then
@@ -257,8 +257,8 @@ function QuickHeal_Druid_FindHealSpellToUse(Target, healType, multiplier, forceM
                 if healneed > (2472*gnMod+healMod35)*K and ManaLeft >= 800*tsMod*mgMod and maxRankHT >= 11 then SpellID = SpellIDsHT[11]; HealSize = 2472*gnMod+healMod35 end
             end
         else
-            if not TargetIsHealthy then -- QH toggle is set to true
-                print('f:QuickHeal_Druid_FindHealSpellToUse -- InCombat, High HPS');
+            if not TargetIsHealthy then -- QH toggle is set to true (High HPS)
+                --print('f:QuickHeal_Druid_FindHealSpellToUse -- InCombat, High HPS');
                 if Health < RatioFull then
                     local heel = healneed/2; --healneed*3/8
                     SpellID = SpellIDsRG[1]; HealSize = 91*gnMod+healModRG*PFRG1; -- Default to rank 1
@@ -271,13 +271,11 @@ function QuickHeal_Druid_FindHealSpellToUse(Target, healType, multiplier, forceM
                     if heel > ( 857*gnMod+healModRG)*k and ManaLeft >= 740*mgMod and maxRankRG >= 8 and downRankFH >= 8 then SpellID = SpellIDsRG[8]; HealSize =  857*gnMod+healModRG end
                     if heel > (1061*gnMod+healModRG)*k and ManaLeft >= 880*mgMod and maxRankRG >= 9 and downRankFH >= 9 then SpellID = SpellIDsRG[9]; HealSize = 1061*gnMod+healModRG end
                 end
-            else -- QH toggle is set to false
-                print('f:QuickHeal_Druid_FindHealSpellToUse -- InCombat, Normal HPS');
-                -- In combat and target is unhealthy and player has Regrowth
-                debug(string.format("In combat and target unhealthy and Regrowth available, will use Regrowth"));
+            else -- QH toggle is set to false (Normal HPS)
+                --print('f:QuickHeal_Druid_FindHealSpellToUse -- InCombat, Normal HPS');
                 if Health < RatioFull then
 
-                    -- if Nature's Grace has procced, fire HT4
+                    -- if Nature's Grace has procced, cast HT4
                     if NaturesGrace then SpellID =  SpellIDsHT[4]; HealSize =  404*gnMod+healMod30; return SpellID,HealSize*HDB; end
 
                     SpellID = SpellIDsHT[1]; HealSize = 44*gnMod+healMod15*PF1; -- Default to rank 1
