@@ -988,6 +988,8 @@ local function Initialise()
         QuickHealDownrank_Slider_NH:SetValue(3)
         QuickHealDownrank_Slider_FH:SetMinMaxValues(1, 9);
         QuickHealDownrank_Slider_FH:SetValue(6)
+        QuickHealConfig_RatioHealthySlider:Hide();
+        QuickHealConfig_Explanation:Hide();
 
         SlashCmdList["QUICKHEAL"] = QuickHeal_Command_Druid;
         SLASH_QUICKHEAL1 = "/qh";

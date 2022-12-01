@@ -480,7 +480,7 @@
             </Layer>
         </Layers>
         <Frames>
-            <!-- RatioFull Slider -->
+            <!-- General Healing Threshold Slider -->
             <Slider name="QuickHealConfig_RatioFullSlider" inherits="OptionsSliderTemplate">
                 <Size>
                     <AbsDimension x="240" y="16"/>
@@ -520,7 +520,7 @@
                 </Scripts>
             </Slider>
 
-            <!-- RatioHealthy Slider -->
+            <!-- Healthy Threshold Slider -->
             <Slider name="QuickHealConfig_RatioHealthySlider" inherits="OptionsSliderTemplate">
                 <Size>
                     <AbsDimension x="240" y="16"/>
