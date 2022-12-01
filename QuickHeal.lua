@@ -984,6 +984,11 @@ local function Initialise()
         FindHoTSpellToUse = QuickHeal_Druid_FindHoTSpellToUse;
         FindHoTSpellToUseNoTarget = QuickHeal_Druid_FindHoTSpellToUseNoTarget;
         GetRatioHealthyExplanation = QuickHeal_Druid_GetRatioHealthyExplanation;
+        QuickHealDownrank_Slider_NH:SetMinMaxValues(1,11);
+        QuickHealDownrank_Slider_NH:SetValue(3)
+        QuickHealDownrank_Slider_FH:SetMinMaxValues(1, 9);
+        QuickHealDownrank_Slider_FH:SetValue(6)
+
         SlashCmdList["QUICKHEAL"] = QuickHeal_Command_Druid;
         SLASH_QUICKHEAL1 = "/qh";
         SLASH_QUICKHEAL2 = "/quickheal";
