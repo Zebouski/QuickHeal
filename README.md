@@ -139,6 +139,7 @@ Added [chainheal] healing type selection for Shaman class.<Br>
 
 **1.17.4**<Br>
 Re-partitioned class modules (i.e. QuickHealDruid.lua, QuickHealPriest.lua, QuickHealPaladin.lua, QuickHealShaman.lua) to allow for class-specific spell/item cast sequences.
+<hr>
 
 **1.17.5**<Br>
 Added 4 new keybindings: 
@@ -146,6 +147,7 @@ Added 4 new keybindings:
 - "HoT Firehose (Naxx Gargoyles)" [/qh hot fh] 
 - "HoT Subgroup" [/qh subgroup hot] 
 - "HoT MT" [/qh mt hot]
+<hr>
 
 **1.17.6**<Br>
 Druid healing improvements & Shaman chainheal fix.
@@ -155,3 +157,4 @@ Druid: Removed "Cfg->General->Healthy Threshold Slider/RatioHealthy" slider and 
 Druid: Eliminated all in-combat HT ranks above HT4 if =L60. 
 Druid: When in Normal HPS mode, HT4 will be cast over HT3 if Nature's Grace procs.
 Shaman: Fixed intermittent ChainHeal SpellID error
+<hr>
