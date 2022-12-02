@@ -150,7 +150,7 @@ Added 4 new keybindings:
 <hr>
 
 **1.17.6**<Br>
-- Druid healing improvements & Shaman chainheal fix.
+Druid healing improvements & Shaman chainheal fix.
 - Druid: Modified downrank sliders that control Healing Touch and Regowth maximum ranks
 - Druid: Split QuickHeal_Druid_FindHealSpellToUse into two separate function blocks: one for <L60 healing and one for =L60
 - Druid: Removed "Cfg->General->Healthy Threshold Slider/RatioHealthy" slider and explanation text;
