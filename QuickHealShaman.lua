@@ -42,6 +42,7 @@ function QuickHeal_Shaman_FindChainHealSpellToUse(Target, healType, multiplier, 
     local RatioHealthy = QuickHeal_GetRatioHealthy();
     local UnitHasHealthInfo = QuickHeal_UnitHasHealthInfo;
     local EstimateUnitHealNeed = QuickHeal_EstimateUnitHealNeed;
+    -- THIS IS WHERE BUG HAPPENS
     local GetSpellIDs = QuickHeal_GetSpellIDs;
     local debug = QuickHeal_debug;
 
@@ -55,7 +56,7 @@ function QuickHeal_Shaman_FindChainHealSpellToUse(Target, healType, multiplier, 
     local Health;
     if UnitHasHealthInfo(Target) then
         -- Full info available
-        healneed = UnitHealthMax(Target) - UnitHealth(Target) - HealComm:getHeal(UnitName(Target)); -- Implementatio for HealComm
+        healneed = UnitHealthMax(Target) - UnitHealth(Target) - HealComm:getHeal(UnitName(Target)); -- Implementation for HealComm
         Health = UnitHealth(Target) / UnitHealthMax(Target);
     else
         -- Estimate target health
@@ -128,7 +129,13 @@ function QuickHeal_Shaman_FindChainHealSpellToUse(Target, healType, multiplier, 
     --local maxRankHW = table.getn(SpellIDsHW);
     --local maxRankLHW = table.getn(SpellIDsLHW);
     --local NoLHW = maxRankLHW < 1;
+
+
+    -- DEBUG display GetSpellIDs table
     debug(string.format("Found CH up to rank %d", maxRankCH))
+    for index, data in ipairs(SpellIDsCH) do
+        debug('GetSpellIDs:' .. index .. ':' .. data)
+    end
 
     --Get max HealRanks that are allowed to be used (we haven't implemented this)
     --local downRankCH = QuickHealVariables.DownrankValueCH -- rank for 1.5 sec heals
@@ -136,20 +143,31 @@ function QuickHeal_Shaman_FindChainHealSpellToUse(Target, healType, multiplier, 
     --local downRankFH = QuickHealVariables.DownrankValueFH -- rank for 1.5 sec heals
     --local downRankNH = QuickHealVariables.DownrankValueNH -- rank for < 1.5 sec heals
 
+    -- DEBUG force InCombat to always true
+    --InCombat = true;
+
     -- Find suitable SpellID based on the defined criteria
     ---prefers chain heal rank one
     local k = 0.9; -- In combat means that target is losing life while casting, so compensate
     local K = 0.8; -- k for fast spells (LHW and HW Rank 1 and 2) and K for slow spells (HW)
+
     if not forceMaxRank then
-        if healneed > (356*pMod*hwMod+healMod25) and ManaLeft >= 260 *tfMod and maxRankCH >=1 then SpellID = SpellIDsCH[1]; HealSize = 356*pMod+healMod25 end
+        SpellID = SpellIDsCH[1]; HealSize = 356*pMod+healMod25;
+        --if healneed > (356*pMod*hwMod+healMod25) and ManaLeft >= 260 *tfMod and maxRankCH >=1 then SpellID = SpellIDsCH[1]; HealSize = 356*pMod+healMod25 end
         if healneed > (898*pMod*hwMod+healMod25) and ManaLeft >= 315 *tfMod and maxRankCH >=2 then SpellID = SpellIDsCH[2]; HealSize = 449*pMod+healMod25 end
         if healneed > (1213*pMod*hwMod+healMod25) and ManaLeft >= 405 *tfMod and maxRankCH >=3 then SpellID = SpellIDsCH[3]; HealSize = 607*pMod+healMod25 end
     else
-        if ManaLeft >= 260 *tfMod and maxRankCH >=1 then SpellID = SpellIDsCH[1]; HealSize = 356*pMod+healMod25 end
-        if ManaLeft >= 315 *tfMod and maxRankCH >=2 then SpellID = SpellIDsCH[2]; HealSize = 449*pMod+healMod25 end
-        if ManaLeft >= 405 *tfMod and maxRankCH >=3 then SpellID = SpellIDsCH[3]; HealSize = 607*pMod+healMod25 end
+        SpellID = SpellIDsCH[3]; HealSize = 607*pMod+healMod25;
+        --if ManaLeft >= 260 *tfMod and maxRankCH >=1 then SpellID = SpellIDsCH[1]; HealSize = 356*pMod+healMod25 end
+        --if ManaLeft >= 315 *tfMod and maxRankCH >=2 then SpellID = SpellIDsCH[2]; HealSize = 449*pMod+healMod25 end
+        --if ManaLeft >= 405 *tfMod and maxRankCH >=3 then SpellID = SpellIDsCH[3]; HealSize = 607*pMod+healMod25 end
     end
 
+    --SpellID = SpellIDsCH[3];
+    --HealSize = 0;
+
+    debug(string.format("about to print spellid.  HealSize:%d", HealSize))
+    debug(string.format("wow SpellID:%s HealSize:%s", SpellID, HealSize))
     return SpellID,HealSize*HDB;
 end
 

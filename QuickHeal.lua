@@ -6,8 +6,8 @@ HealComm = AceLibrary("HealComm-1.0")
 --[ Mod data ]--
 QuickHealData = {
     name = 'QuickHeal',
-    version = '1.17.5',
-    releaseDate = 'Sep 6th, 2022',
+    version = '1.17.6',
+    releaseDate = 'December 1st, 2022',
     author = 'T. Thorsen, S. Geeding and K. Karachalios feat. Dispatchio',
     website = 'https://turtle-wow.org/',
     category = MYADDONS_CATEGORY_CLASS
@@ -1804,6 +1804,8 @@ function QuickHeal_GetSpellIDs(spellName)
             return List
         end
 
+        --debug(string.format("spellNamei: %s ", Bonus));
+
         if spellNamei == spellName then
             _, _, spellRank = string.find(spellRank, " (%d+)$");
             spellRank = tonumber(spellRank);
@@ -2848,12 +2850,14 @@ function QuickChainHeal(Target, SpellID, extParam, forceMaxRank)
     -- Target acquired
     QuickHeal_debug(string.format("  Healing target: %s (%s)", UnitFullName(Target), Target));
 
+    --HealingSpellSize = 0;
     HealingSpellSize = 0;
 
     -- Check SpellID input
     if not SpellID then
         -- No SpellID specified, find appropriate spell
         SpellID, HealingSpellSize = FindChainHealSpellToUse(Target, "channel", 1.0, forceMaxRank);
+
     elseif type(SpellID) == "string" then
         -- Spell specified as string, extract name and possibly rank
         local _, _, sname, srank = string.find(SpellID, "^(..-)%s*(%d*)$")
@@ -2890,6 +2894,7 @@ function QuickChainHeal(Target, SpellID, extParam, forceMaxRank)
     end
 
     if SpellID then
+        --QuickHeal_debug(string.format("  Target: %s / SpellID: %s", UnitFullName(Target), Target));
         ExecuteHeal(Target, SpellID);
     else
         Message("You have no healing spells to cast", "Error", 2);
