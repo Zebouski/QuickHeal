@@ -150,11 +150,11 @@ Added 4 new keybindings:
 <hr>
 
 **1.17.6**<Br>
-Druid healing improvements & Shaman chainheal fix.
-Druid: Modified downrank sliders that control Healing Touch and Regowth maximum ranks
-Druid: Split QuickHeal_Druid_FindHealSpellToUse into two separate function blocks: one for <L60 healing and one for =L60
-Druid: Removed "Cfg->General->Healthy Threshold Slider/RatioHealthy" slider and explanation text;
-Druid: Eliminated all in-combat HT ranks above HT4 if =L60. 
-Druid: When in Normal HPS mode, HT4 will be cast over HT3 if Nature's Grace procs.
-Shaman: Fixed intermittent ChainHeal SpellID error
+- Druid healing improvements & Shaman chainheal fix.
+- Druid: Modified downrank sliders that control Healing Touch and Regowth maximum ranks
+- Druid: Split QuickHeal_Druid_FindHealSpellToUse into two separate function blocks: one for <L60 healing and one for =L60
+- Druid: Removed "Cfg->General->Healthy Threshold Slider/RatioHealthy" slider and explanation text;
+- Druid: Eliminated all in-combat HT ranks above HT4 if =L60. 
+- Druid: When in Normal HPS mode, HT4 will be cast over HT3 if Nature's Grace procs.
+- Shaman: Fixed intermittent ChainHeal SpellID error
 <hr>
