@@ -2138,9 +2138,9 @@
                     </Anchor>
                 </Anchors>
                 <Scripts>
-                    <OnLoad>
+                    <!-- This gives red errors <OnLoad>
                         this:SetText(QH_CLR_MT_PRIO);
-                    </OnLoad>
+                    </OnLoad> -->
                     <OnClick>
                         QH_ClearMTList();
                     </OnClick>
