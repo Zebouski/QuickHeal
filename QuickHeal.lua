@@ -1008,7 +1008,10 @@ local function Initialise()
     UIErrorsFrame_OnEvent = NewUIErrorsFrame_OnEvent;
 
     -- Setup QuickHealVariables (and initialise upon first use)
-    QHV = QuickHealVariables;
+	
+    if not QuickHealVariables then QuickHealVariables={}; end
+	QHV = QuickHealVariables;
+	
     for k in pairs(DQHV) do
         if QHV[k] == nil then
             QHV[k] = DQHV[k]
