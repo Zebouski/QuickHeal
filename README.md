@@ -19,7 +19,7 @@ QuickHeal uses the incoming heal information broadcast by HealComm (Luna unit Fr
 
 ## Installation
 - Download QuickHeal from this repository into your Interface folder and remove the "-main" in the folder name
-- Download Bonusscanner (Makes QuickHeal and HealComm (Luna unit Frames) more accurate by taking gear and +Heal into account: http://www.vanilla-addons.com/dls/bonusscanner/
+- Download Bonusscanner (Makes QuickHeal and HealComm (Luna unit Frames) more accurate by taking gear and +Heal into account: https://github.com/GryllsAddons/BonusScanner
 
 ## Usage
 
